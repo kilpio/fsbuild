@@ -18,6 +18,7 @@
      dir('jmtest'){
       
       sshagent(credentials: ['${GITHUB_SSH_KEY_CREDENTIALS_ID}']) {
+        def branchName='master'
         sh "git config user.name ${GIT_REPO_OWNER}"
         sh "git checkout ${branchName}"
         sh("git push -u origin ${branchName}")

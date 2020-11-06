@@ -30,8 +30,8 @@ def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def cle
     }
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
-            userRemoteConfigs                : [[credentialsId: GITHUB_SSH_CREDENTIALS_ID, url: 'git@github.com/GIT_REPO_OWNER/repositoryName.git']],
-            extensions                       : extension
+            userRemoteConfigs                : [[credentialsId: GITHUB_SSH_CREDENTIALS_ID, url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
+            extensions                       : extensions
     ])
 }
 

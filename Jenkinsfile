@@ -22,6 +22,7 @@
         sh "git checkout ${branchName}"
         sh("git push -u origin ${branchName}")
         //gitPushToBranch('master')
+        }
      }
     }
     

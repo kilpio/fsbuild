@@ -47,7 +47,7 @@ void gitPushToBranch(branchName) {
         dir('jmtest') {
             echo GITHUB_SSH_CREDENTIALS_ID
         //sshagent(['4a231538-be78-4394-8ea9-171031665c78']) {
-        sshagent(credentials: ['$GITHUB_SSH_CREDENTIALS_ID']) {
+         sshagent(credentials: ['${GITHUB_SSH_CREDENTIALS_ID}']) {
             
         sh "git config user.name ${GIT_REPO_OWNER}"
         sh "git checkout ${branchName}"

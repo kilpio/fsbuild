@@ -17,7 +17,7 @@
         echo 'Stage <GitPush>'
      dir('jmtest'){
       
-        sshagent(credentials: [GITHUB_SSH_CREDENTIALS_ID]) {
+      sshagent(credentials: [${GITHUB_SSH_KEY_CREDENTIALS_ID}]) {
         sh "git config user.name ${GIT_REPO_OWNER}"
         sh "git checkout ${branchName}"
         sh("git push -u origin ${branchName}")

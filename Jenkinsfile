@@ -37,7 +37,7 @@ def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def cle
     if (clean) {
         extensions.push([$class: 'WipeWorkspace']) //CleanBeforeCheckout
     }
- withCredentials([usernamePassword(credentialsId: '$GITHUB_SSH_CREDENTIALS_ID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+ withCredentials([usernamePassword(credentialsId: '${GITHUB_SSH_CREDENTIALS_ID}', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
             userRemoteConfigs                : [[credentialsId: GITHUB_SSH_CREDENTIALS_ID, url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],

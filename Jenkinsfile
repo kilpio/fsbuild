@@ -29,7 +29,27 @@ properties([
      stage('Get') {
          echo 'Stage <Get>'
 //         def returnValue = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
-         checkoutFromGithubToSubfolder('jmtest', MASTER_BRANCH)
+      //   checkoutFromGithubToSubfolder('jmtest', MASTER_BRANCH)
+        def repositoryName ='jmtest'
+        def extensions = [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${repositoryName}"],
+                    [$class: 'UserIdentity', name: "${GIT_REPO_OWNER}"],
+                    [$class: 'ScmName', name: "${GIT_REPO_OWNER}"]
+    ]
+   
+    if (clean) {
+        extensions.push([$class: 'WipeWorkspace']) //CleanBeforeCheckout
+    }
+
+    checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
+            doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
+            userRemoteConfigs                : [[credentialsId: GITHUB_SSH_CREDENTIALS_ID, url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
+           extensions                       : extensions
+    ])
+
+
+
+
+
      }
     
      stage ('Modify'){
@@ -67,26 +87,13 @@ def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def cle
     if (clean) {
         extensions.push([$class: 'WipeWorkspace']) //CleanBeforeCheckout
     }
-// withCredentials([usernamePassword(credentialsId: '${GITHUB_SSH_CREDENTIALS_ID}', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 
-// withCredentials([
-//       // the credentialsId must match the credential name in the Pipeline properties parameters above
-//       usernamePassword(credentialsId: 'GITHUB_SSH_CREDENTIALS_ID', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
-//     ]) {
-      
-   // sh("""
-   //         git config --global credential.username {GIT_USERNAME}
-   //         git config --global credential.helper "!echo password={GIT_PASSWORD}; echo"
-   //""")
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
             userRemoteConfigs                : [[credentialsId: GITHUB_SSH_CREDENTIALS_ID, url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
-//              userRemoteConfigs                : [[url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
            extensions                       : extensions
     ])
     }
-//  }
-//}
 
 
 void commitBranch(branchName) {

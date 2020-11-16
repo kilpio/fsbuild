@@ -57,7 +57,7 @@ def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def cle
 
 withCredentials([
       // the credentialsId must match the credential name in the Pipeline properties parameters above
-      usernamePassword(credentialsId: GITHUB_SSH_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
+      usernamePassword(credentialsId: 'GITHUB_SSH_CREDENTIALS_ID', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
       
     sh("""

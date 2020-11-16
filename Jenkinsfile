@@ -3,7 +3,7 @@
 
      stage('Get') {
          echo 'Stage <Get>'
-         def returnValue = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
+//         def returnValue = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
          checkoutFromGithubToSubfolder('jmtest', MASTER_BRANCH)
      }
     

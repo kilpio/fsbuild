@@ -1,4 +1,7 @@
 
+
+node{
+
 properties([
   parameters([
     credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
@@ -23,9 +26,6 @@ properties([
 
   )
 ])
-
- node{
-
      stage('Get') {
          echo 'Stage <Get>'
 //         def returnValue = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]

@@ -32,6 +32,7 @@ properties([
       //   checkoutFromGithubToSubfolder('jmtest', MASTER_BRANCH)
         def repositoryName ='jmtest'
         def clean = true
+        def branch = 'master'
         def extensions = [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${repositoryName}"],
                     [$class: 'UserIdentity', name: "${GIT_REPO_OWNER}"],
                     [$class: 'ScmName', name: "${GIT_REPO_OWNER}"]

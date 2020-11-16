@@ -6,8 +6,15 @@ properties([
                 description: 'Test creds uname with pass',
                 // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
                 name: 'GITHUB_SSH_CREDENTIALS_ID',
-                required: true)
-  ])
+                required: true),
+    credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.BasicSSHUserPrivateKey',
+                defaultValue: '',
+                description: 'Test creds uname with key',
+                // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
+                name: 'GITHUB_SSH_KEY_CREDENTIALS_ID',
+                required: true)            
+  ]
+  )
 ])
 
  node{
@@ -55,23 +62,23 @@ def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def cle
     }
 // withCredentials([usernamePassword(credentialsId: '${GITHUB_SSH_CREDENTIALS_ID}', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 
-withCredentials([
-      // the credentialsId must match the credential name in the Pipeline properties parameters above
-      usernamePassword(credentialsId: '${GITHUB_SSH_CREDENTIALS_ID}', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
-    ]) {
+// withCredentials([
+//       // the credentialsId must match the credential name in the Pipeline properties parameters above
+//       usernamePassword(credentialsId: 'GITHUB_SSH_CREDENTIALS_ID', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
+//     ]) {
       
-    sh("""
-            git config --global credential.username {GIT_USERNAME}
-            git config --global credential.helper "!echo password={GIT_PASSWORD}; echo"
-    """)
+   // sh("""
+   //         git config --global credential.username {GIT_USERNAME}
+   //         git config --global credential.helper "!echo password={GIT_PASSWORD}; echo"
+   //""")
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
-            userRemoteConfigs                : [[credentialsId: '${GITHUB_SSH_CREDENTIALS_ID}', url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
+            userRemoteConfigs                : [[credentialsId: 'GITHUB_SSH_CREDENTIALS_ID', url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
 //              userRemoteConfigs                : [[url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
            extensions                       : extensions
     ])
     }
- }
+//  }
 //}
 
 

@@ -1,8 +1,5 @@
+pipeline {
  node{
-
-
-
-
 
      stage('Get') {
          echo 'Stage <Get>'
@@ -33,6 +30,7 @@
      }
     }
     
+}
 }
 
 def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def clean = true) {

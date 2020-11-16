@@ -5,7 +5,7 @@ properties([
                 defaultValue: '',
                 description: 'Test creds uname with pass',
                 // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
-                name: 'GITHUB_SSH_CREDENTIALS_ID_1',
+                name: 'GITHUB_SSH_CREDENTIALS_ID',
                 required: true),                
     credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.BasicSSHUserPrivateKey',
                  defaultValue: '',
@@ -13,12 +13,12 @@ properties([
                  // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
                  name: 'GITHUB_SSH_KEY_CREDENTIALS_ID',
                  required: true),
-    credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
-                defaultValue: '',
-                description: 'Test creds uname with pass',
-                // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
-                name: 'GITHUB_SSH_CREDENTIALS_ID_2',
-                required: true),
+    string(defaultValue: 'master',
+            name: 'MASTER_BRANCH',
+            description: 'branch to build from'),
+    string(defaultValue: 'alkilpio',
+            name: 'GIT_REPO_OWNER',
+            description: 'repo to build from'),        
   ] 
 
   )

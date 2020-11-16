@@ -57,10 +57,13 @@ def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def cle
 
 withCredentials([
       // the credentialsId must match the credential name in the Pipeline properties parameters above
-      usernameColonPassword(credentialsId: 'GITHUB_SSH_CREDENTIALS_ID', variable: 'DEPLOY_KEY')
+      usernamePassword(credentialsId: GITHUB_SSH_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
       
-    
+    sh("""
+            git config --global credential.username {GIT_USERNAME}
+            git config --global credential.helper "!echo password={GIT_PASSWORD}; echo"
+    """)
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
             userRemoteConfigs                : [[credentialsId: '${GITHUB_SSH_CREDENTIALS_ID}', url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],

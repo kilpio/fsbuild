@@ -4,12 +4,12 @@ node{
 
 properties([
   parameters([
-    // credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
-    //             defaultValue: '',
-    //             description: 'Test creds uname with pass',
-    //             // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
-    //             name: 'GITHUB_SSH_CREDENTIALS_ID',
-    //             required: true),                
+    credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
+                defaultValue: '',
+                description: 'Test creds uname with pass',
+                // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
+                name: 'GITHUB_SSH_CREDENTIALS_ID',
+                required: true),                
     credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.BasicSSHUserPrivateKey',
                  defaultValue: '',
                  description: 'Test creds uname with key',
@@ -27,13 +27,13 @@ properties([
   )
 ])
      stage('Get') {
-        parameters([
-        credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
-                defaultValue: '',
-                description: 'Test creds uname with pass',
-                // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
-                name: 'GITHUB_SSH_CREDENTIALS_ID',
-                required: true)])
+        // parameters([
+        // credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
+        //         defaultValue: '',
+        //         description: 'Test creds uname with pass',
+        //         // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
+        //         name: 'GITHUB_SSH_CREDENTIALS_ID',
+        //         required: true)])
 
          echo 'Stage <Get>'
 //         def returnValue = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
@@ -52,7 +52,7 @@ properties([
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
-            userRemoteConfigs                : [[credentialsId: GITHUB_SSH_CREDENTIALS_ID, url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
+            userRemoteConfigs                : [[credentialsId:'${GITHUB_SSH_CREDENTIALS_ID}' , url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
            extensions                       : extensions
     ])
 

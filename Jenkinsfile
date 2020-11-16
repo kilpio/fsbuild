@@ -1,4 +1,4 @@
-pipeline {
+
  node{
 
      stage('Get') {
@@ -31,7 +31,7 @@ pipeline {
     }
     
 }
-}
+
 
 def checkoutFromGithubToSubfolder(repositoryName, def branch = 'master', def clean = true) {
     def extensions = [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${repositoryName}"],

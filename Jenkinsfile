@@ -31,6 +31,7 @@ properties([
 //         def returnValue = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
       //   checkoutFromGithubToSubfolder('jmtest', MASTER_BRANCH)
         def repositoryName ='jmtest'
+        def clean = true
         def extensions = [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${repositoryName}"],
                     [$class: 'UserIdentity', name: "${GIT_REPO_OWNER}"],
                     [$class: 'ScmName', name: "${GIT_REPO_OWNER}"]

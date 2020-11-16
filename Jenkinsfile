@@ -6,15 +6,16 @@ properties([
                 description: 'Test creds uname with pass',
                 // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
                 name: 'GITHUB_SSH_CREDENTIALS_ID',
-                required: true)
+                required: true),
                 
-                // [(credentialType: 'com.cloudbees.plugins.credentials.impl.BasicSSHUserPrivateKey',
-                // defaultValue: '',
-                // description: 'Test creds uname with key',
-                // // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
-                // name: 'GITHUB_SSH_KEY_CREDENTIALS_ID',
-                // required: true)]]            
-  ]
+    credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.BasicSSHUserPrivateKey',
+                 defaultValue: '',
+                 description: 'Test creds uname with key',
+                 // the credentials name used here must match the credentialsId referenced in the 'Deploy' stage below
+                 name: 'GITHUB_SSH_KEY_CREDENTIALS_ID',
+                 required: true)
+  ] 
+
   )
 ])
 

@@ -36,6 +36,13 @@ properties([
         //         required: true)])
 
          echo 'Stage <Get>'
+
+withCredentials([usernameColonPassword(credentialsId: 'GITHUB_SSH_CREDENTIALS_ID', variable: 'USERPASS')]) {
+    echo ${USERPASS}
+  }
+
+
+
 //         def returnValue = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
       //   checkoutFromGithubToSubfolder('jmtest', MASTER_BRANCH)
         def repositoryName ='jmtest'
@@ -49,6 +56,8 @@ properties([
     if (clean) {
         extensions.push([$class: 'WipeWorkspace']) //CleanBeforeCheckout
     }
+
+
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],

@@ -63,7 +63,7 @@ withCredentials([usernameColonPassword(credentialsId: 'GITHUB_SSH_CREDENTIALS_ID
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     checkout([$class                           : 'GitSCM', branches: [ [name: "*/${MASTER_BRANCH}"], [name: "*/${branch}"]],
             doGenerateSubmoduleConfigurations: false, submoduleCfg: [],
-            userRemoteConfigs                : [[credentialsId: GITHUB_SSH_CREDENTIALS_ID, url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
+            userRemoteConfigs                : [[credentialsId: GITHUB_SSH_KEY_CREDENTIALS_ID, url: "git@github.com:${GIT_REPO_OWNER}/${repositoryName}.git"]],
            extensions                       : extensions
     ])
 

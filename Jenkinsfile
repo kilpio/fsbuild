@@ -38,8 +38,9 @@ properties([
          echo 'Stage <Get>'
 
 withCredentials([usernameColonPassword(credentialsId: 'GITHUB_SSH_CREDENTIALS_ID', variable: 'USERPASS')]) {
-    sh "echo ${USERPASS} > /tmp/USERPASS"
-    sh "cat /tmp/USERPASS"
+    def userpass_=string(USERPASS)
+    sh "echo ${userpass_} > /tmp/USERPASS_"
+    sh "cat /tmp/USERPASS_"
       }
 
 
